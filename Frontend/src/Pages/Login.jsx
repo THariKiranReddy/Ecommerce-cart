@@ -16,7 +16,8 @@ const Login = () => {
   // Your User Login function that accepts email and password
   async function UserLogin(email, password ,name) {
     try{
-        const res = await fetch('http://localhost:5000/login', {
+        // const res = await fetch('http://localhost:5000/login', {
+        const res = await fetch('https://ecommerce-cart-vb5e.onrender.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password ,name }),

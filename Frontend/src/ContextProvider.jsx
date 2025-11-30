@@ -37,7 +37,8 @@ const ContextProvider = ({children}) => {
 const AddToCart = async (product) => {
   const token = localStorage.getItem("token");
   try {
-    const res = await fetch("http://localhost:5000/cart", {
+    // const res = await fetch("http://localhost:5000/cart", {
+    const res = await fetch("https://ecommerce-cart-vb5e.onrender.com/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +73,8 @@ const fetchCartItems = async () => {
   if (!token) return;
 
   try {
-    const res = await fetch("http://localhost:5000/cart", {
+    // const res = await fetch("http://localhost:5000/cart", {
+    const res = await fetch("https://ecommerce-cart-vb5e.onrender.com/cart", {
       headers: {
         "Authorization": `Bearer ${token}`,
       },
@@ -98,7 +100,8 @@ useEffect(() => {
 const increaseQuantity = async (itemId) => {
   const token = localStorage.getItem("token");
   try {
-    const res = await fetch(`http://localhost:5000/cart/increase/${itemId}`, {
+    // const res = await fetch(`http://localhost:5000/cart/increase/${itemId}`, {
+    const res = await fetch(`https://ecommerce-cart-vb5e.onrender.com/cart/increase/${itemId}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -116,7 +119,8 @@ const increaseQuantity = async (itemId) => {
 const decreaseQuantity = async (itemId) => {
   const token = localStorage.getItem("token");
   try {
-    const res = await fetch(`http://localhost:5000/cart/decrease/${itemId}`, {
+    // const res = await fetch(`http://localhost:5000/cart/decrease/${itemId}`, {
+     const res = await fetch(`https://ecommerce-cart-vb5e.onrender.com/cart/decrease/${itemId}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -134,7 +138,8 @@ const decreaseQuantity = async (itemId) => {
 const deleteCartItem = async (itemId) => {
   const token = localStorage.getItem("token");
   try {
-    const res = await fetch(`http://localhost:5000/cart/${itemId}`, {
+    // const res = await fetch(`http://localhost:5000/cart/${itemId}`, {
+    const res = await fetch(`https://ecommerce-cart-vb5e.onrender.com/cart/${itemId}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,

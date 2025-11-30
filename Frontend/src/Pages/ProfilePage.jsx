@@ -5,7 +5,8 @@ const ProfilePage =() => {
   const fetching = async() =>{
     const token = localStorage.getItem("token");
     try{
-      const res = await fetch('http://localhost:5000/userprofile',{
+      // const res = await fetch('http://localhost:5000/userprofile',{
+      const res = await fetch('https://ecommerce-cart-vb5e.onrender.com/userprofile',{
       method: "GET",
       headers: {
         "Content-Type": "application/json",

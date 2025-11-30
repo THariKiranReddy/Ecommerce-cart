@@ -16,7 +16,8 @@ const SignUp = () => {
   // Your signup function that accepts email and password
   async function SignUp(email, password, name) {
     try{
-        const res = await fetch('http://localhost:5000/register', {
+        // const res = await fetch('http://localhost:5000/register', {
+        const res = await fetch('https://ecommerce-cart-vb5e.onrender.com/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password ,name}),
