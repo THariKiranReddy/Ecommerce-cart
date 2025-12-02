@@ -7,6 +7,7 @@ const ContextProvider = ({children}) => {
     const [search, setSearch] = useState("");
     const [ isAuth , setIsAuth ] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [ loading , setLoading ] = useState(false);
 
     const Login = ()=> {setIsAuth(true);
       console.log("logged in");
@@ -155,7 +156,7 @@ const deleteCartItem = async (itemId) => {
 
 
   return (
-    <AppContext.Provider value={{data, isAuth , LogOutFun , Login, AddToCart ,  cartItems, increaseQuantity,decreaseQuantity,deleteCartItem , setSearch , search}}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{data, isAuth , LogOutFun , Login, AddToCart ,  cartItems, increaseQuantity,decreaseQuantity,deleteCartItem , setSearch , search,loading,setLoading}}>{children}</AppContext.Provider>
   )
 }
 export default ContextProvider

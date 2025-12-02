@@ -4,7 +4,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 
 const Products = () => {
-     const {data,AddToCart,setSearch,search} = useContext(AppContext);
+     const {data,AddToCart,setSearch,search,loading} = useContext(AppContext);
      const [filter, setFilter] = useState("");
     const sortedData = [...data];
    
@@ -16,6 +16,14 @@ const Products = () => {
    if(filter === "dsc") {
     sortedData.sort((a,b) => b.price - a.price);
    }
+
+ if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-600"></div>
+      </div>
+    );
+  } 
   return (
     <div className='bg-gradient-to-b from-gray-100 to-white min-h-screen'>
       <div className='h-3'></div>
