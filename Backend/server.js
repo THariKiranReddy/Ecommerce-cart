@@ -37,6 +37,11 @@ const authenticateToken = (req, res, next) => {
 
 };
 
+app.get("/debug-cart", async (req, res) => {
+  const all = await Cart.find({});
+  res.json(all);
+});
+
 app.get("/products", async (req, res) => {
   const search = req.query.search || "";
 
@@ -51,7 +56,6 @@ app.get("/products", async (req, res) => {
 app.post("/cart",authenticateToken, async (req, res) => {
   try {
      const userId = req.user.userId; 
-
       if (!userId) {
       return res.status(401).json({ message: "Unauthorized, userId missing" });
     }
@@ -139,8 +143,14 @@ app.delete("/cart/:id", authenticateToken, async (req, res) => {
 
 // Optional: GET route to view all cart items
 app.get("/cart",authenticateToken, async (req, res) => {
-  const items = await Cart.find({ userId: req.user.id });
+  try{
+    // const items = await Cart.find({ userId: req.user.id });
+  const items = await Cart.find({ userId: req.user.userId });
   res.json(items);
+  }
+  catch(error){
+   res.status(500).json({ error: error.message });
+  }
 });
 
 //user profile routes   
