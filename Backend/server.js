@@ -170,7 +170,11 @@ app.post('/register', async (req, res) => {
     // Save user
     user = new User({ email, password: hashedPassword, name });
     await user.save();
-
+    const payload = {
+      userId: user._id,
+      email: user.email,
+    };
+     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
