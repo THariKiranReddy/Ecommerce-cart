@@ -25,12 +25,16 @@ const SignUp = () => {
      const data = await res.json();
     console.log(data);
 
-    if (res.ok) {
+    if (res.ok && data.token) {
       localStorage.setItem('token', data.token); // Save token
       
     // 🔥 Decode token to extract userId
+      try{
     const decoded = JSON.parse(atob(data.token.split(".")[1]));
     localStorage.setItem("userId", decoded.userId);
+      }catch(error){
+        console.error("Token decoding failed", e);
+  }
       return true;
     } else {
       alert(data.message || 'Login failed');
