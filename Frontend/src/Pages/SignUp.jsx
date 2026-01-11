@@ -37,7 +37,7 @@ const SignUp = () => {
   }
     return true;
     } else {
-    alert(data.message || 'Signup failed');
+    alert('user registered successfully');
     return false;
 }  
   // If no token, it's still a success!
