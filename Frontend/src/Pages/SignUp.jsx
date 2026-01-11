@@ -59,7 +59,7 @@ const SignUp = () => {
     navigate('/products');
   }
   else{
-    alert("SignUp Failed try again");
+    console.log("SignUp Failed try again");
   }
 
   }
