@@ -5,17 +5,20 @@ export const AppContext  = createContext();
 const ContextProvider = ({children}) => {
     const [ data , setData ] = useState([]);
     const [search, setSearch] = useState("");
-    const [ isAuth , setIsAuth ] = useState(false);
+    const [ isAuth , setIsAuth ] = useState(!!localStorage.getItem("token"));
     const [cartItems, setCartItems] = useState([]);
     const [ loading , setLoading ] = useState(false);
 
-    const Login = ()=> {setIsAuth(true);
-      console.log("logged in");
+    const Login = ()=> {
+      setIsAuth(true);
+    fetchCartItems(); 
+    console.log("logged in");
     };
     const LogOutFun = ()=> {
        localStorage.removeItem("token");
+        localStorage.removeItem("userId"); // Clean up everything
+    setCartItems([]); // Clear cart state so the next user doesn't see it
         setIsAuth(false);
-        
     };
     const fetchUser = async() =>{
         console.log("started");
@@ -71,8 +74,10 @@ const AddToCart = async (product) => {
 
 const fetchCartItems = async () => {
   const token = localStorage.getItem("token");
-  if (!token) return;
-
+  if (!token) {
+    setCartItems([]); // Ensure cart is empty if no token
+    return;
+  }
   try {
     // const res = await fetch("http://localhost:5000/cart", {
     const res = await fetch("https://ecommerce-cart-vb5e.onrender.com/cart", {
@@ -87,6 +92,9 @@ const fetchCartItems = async () => {
     } else {
       console.error("Failed to fetch cart items");
     }
+      if (res.status === 401) { // If token is invalid/expired
+    LogOutFun(); 
+  }
   } catch (error) {
     console.error("Error fetching cart items:", error);
   }
