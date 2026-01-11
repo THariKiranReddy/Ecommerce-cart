@@ -41,7 +41,7 @@ const SignUp = () => {
   alert("Registration Successful! Please Login.");
   return "REDIRECT_TO_LOGIN"; 
 } else {
-  alert(data.message || 'Registration failed');
+  // alert(data.message || 'Registration failed');
   return false;
 }
     catch(error){
