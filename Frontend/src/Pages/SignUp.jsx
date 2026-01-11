@@ -34,19 +34,16 @@ const SignUp = () => {
     } catch(e) {
       console.error("Token decoding failed", e);
     }
-  }
+  }else {
+        // 2. If no token, just a friendly alert before redirecting
+        alert("Registration Successful! Redirecting to login...");
+      }
     return true;
     } else {
-    alert('user registered successfully');
+    alert(data.message || 'Registration failed');
     return false;
-}  
-  // If no token, it's still a success!
-  alert("Registration Successful! Please Login.");
-  return "REDIRECT_TO_LOGIN"; 
-} else {
-  // alert(data.message || 'Registration failed');
-  return false;
 }
+    }
     catch(error){
       console.log(error);
     }
