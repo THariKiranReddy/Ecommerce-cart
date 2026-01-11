@@ -6,6 +6,7 @@ const Login = () => {
     
   const navigate = useNavigate();
     const {Login : loginFunc } = useContext(AppContext);
+    const [isLoading, setIsLoading] = useState(false);
   const [redirect,setRedirect] = useState(false);
   const [details,setDetails] = useState({
     email:"",
@@ -25,7 +26,7 @@ const Login = () => {
      const data = await res.json();
     console.log(data);
 
-    if (res.ok) {
+    if (res.ok && data.token ) {
       localStorage.setItem('token', data.token); // Save token
       
     // 🔥 Decode token to extract userId
@@ -38,17 +39,21 @@ const Login = () => {
     }
     }
     catch(error){
+        alert("Server is sleeping. Retrying in 5 seconds...");
       console.log(error);
+        return false;
     }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await UserLogin(details.email,details.password);
+      setIsLoading(true);
+    const success = await UserLogin(details.email,details.password,details.name);
+      setIsLoading(false);
      if(success){
       loginFunc();
+         alert("Login Successful!");
    setRedirect(true);
-    alert("Success!");
     navigate("/products");
   }
   else{
@@ -69,7 +74,7 @@ const Login = () => {
                    <input type="text" placeholder='Enter Username' value={details.name} name="name" onChange={handleChange} className='h-8 w-80 rounded-md p-2 focus:outline focus:outline-gray-500'/><br></br>
         <input type="text" placeholder="Enter Email" value={details.email} name="email" onChange={handleChange} className='h-8 mt-2 w-80 rounded-md p-2 focus:outline focus:outline-gray-500'/><br></br>
         <input type="password" placeholder='Enter Password' value={details.password} name="password" onChange={handleChange} className='h-8 mt-2 w-80 rounded-md p-2 focus:outline focus:outline-gray-500'/><br></br>
-        <button type="submit" className='mt-5 bg-slate-800 text-white transition duration-300 w-16 p-2 rounded-md block mx-auto hover:bg-blue-400'>Login</button>
+        <button type="submit" disabled={isLoading} className='mt-5 bg-slate-800 text-white transition duration-300 w-16 p-2 rounded-md block mx-auto hover:bg-blue-400'>{isLoading ? "Loading..." : "Login"}</button>
                 </div>
       </form>
         </div>
