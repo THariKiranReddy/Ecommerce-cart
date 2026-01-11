@@ -34,9 +34,12 @@ const SignUp = () => {
     } catch(e) {
       console.error("Token decoding failed", e);
     }
-    return true; // Successfully logged in automatically
   }
-  
+    return true;
+    } else {
+    alert(data.message || 'Signup failed');
+    return false;
+}  
   // If no token, it's still a success!
   alert("Registration Successful! Please Login.");
   return "REDIRECT_TO_LOGIN"; 
