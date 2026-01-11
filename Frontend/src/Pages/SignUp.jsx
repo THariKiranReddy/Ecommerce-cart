@@ -25,22 +25,25 @@ const SignUp = () => {
      const data = await res.json();
     console.log(data);
 
-    if (res.ok && data.token) {
-      localStorage.setItem('token', data.token); // Save token
-      
-    // 🔥 Decode token to extract userId
-      try{
-    const decoded = JSON.parse(atob(data.token.split(".")[1]));
-    localStorage.setItem("userId", decoded.userId);
-      }catch(error){
-        console.error("Token decoding failed", e);
+    if (res.ok) { // Only check if the response is successful
+  if (data.token) {
+    localStorage.setItem('token', data.token); 
+    try {
+      const decoded = JSON.parse(atob(data.token.split(".")[1]));
+      localStorage.setItem("userId", decoded.userId);
+    } catch(e) {
+      console.error("Token decoding failed", e);
+    }
+    return true; // Successfully logged in automatically
   }
-      return true;
-    } else {
-      alert(data.message || 'Login failed');
-      return false;
-    }
-    }
+  
+  // If no token, it's still a success!
+  alert("Registration Successful! Please Login.");
+  return "REDIRECT_TO_LOGIN"; 
+} else {
+  alert(data.message || 'Registration failed');
+  return false;
+}
     catch(error){
       console.log(error);
     }
